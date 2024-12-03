@@ -8,7 +8,6 @@ import javafx.scene.shape.Rectangle;
 public class ButtonLogic {
     
     Rectangle[][] storedBoxes;
-    Rectangle box2 = new Rectangle();
    
     
     public ButtonLogic (Rectangle[][] myBoxes) {
@@ -19,17 +18,12 @@ public class ButtonLogic {
                 
                 Rectangle box = storedBoxes[count1][count2];
                 
-                //if (count2 < 8) {
-                //    box2 = storedBoxes[count1++][count2];
-                //}
-                
                 box.addEventHandler(MouseEvent.MOUSE_ENTERED,
                         new EventHandler<MouseEvent>()
                 {
                     @Override
                     public void handle(MouseEvent t) {
                         box.setFill(Color.BISQUE);
-                        //box2.setFill(Color.BISQUE);
                     }
                 });
                 
@@ -39,7 +33,6 @@ public class ButtonLogic {
                     @Override
                     public void handle(MouseEvent t) {
                         box.setFill(Color.WHITE);
-                        //box2.setFill(Color.WHITE);
                     }
                 });
             }
