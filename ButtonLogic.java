@@ -9,7 +9,6 @@ public class ButtonLogic {
     
     Rectangle[][] storedBoxes;
    
-    
     public ButtonLogic (Rectangle[][] myBoxes) {
         storedBoxes = myBoxes;
         
@@ -40,7 +39,7 @@ public class ButtonLogic {
         
     }
     
-    public void inputNumber(){
+    //public void inputNumber(){
         
-    }
+    //}
 }

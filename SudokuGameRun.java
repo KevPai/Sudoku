@@ -9,7 +9,7 @@ public class SudokuGameRun extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 	    
-	    Scene game = new Scene(new SudokuPane(), 360, 480);
+	    Scene game = new Scene(new SudokuPane(), 360, 520);
 	    
         primaryStage.setTitle("Sudoku");
         primaryStage.setScene(game);

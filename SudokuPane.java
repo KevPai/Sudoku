@@ -29,6 +29,11 @@ public class SudokuPane extends GridPane{
     Rectangle visualBoxes[][] = new Rectangle[9][9];
     ButtonLogic sudokuButtons;
     
+    SolvePuzzle solve;
+    Rectangle solveButton;
+    Label solveText = new Label();
+    StackPane solveStack = new StackPane();
+    
     int currentInput = 0;
     
     public SudokuPane() {
@@ -37,7 +42,7 @@ public class SudokuPane extends GridPane{
                 getColumnConstraints().add(column);
         }
 
-        for (int x = 0; x < 12; x++) {
+        for (int x = 0; x < 13; x++) {
                 RowConstraints row = new RowConstraints(40);
                 getRowConstraints().add(row);
         }
@@ -53,7 +58,6 @@ public class SudokuPane extends GridPane{
         sudokuButtons = new ButtonLogic(visualBoxes);
         
         setInputNumbers();
-        
         
         line1.setEndX(356); 
         setValignment(line1, VPos.TOP);
@@ -72,6 +76,14 @@ public class SudokuPane extends GridPane{
         line4.setEndY(676);
         line4.setStrokeWidth(3);
         add(line4, 6, 0);
+        
+        solveButton = new Rectangle(120,40,Color.WHITE);
+        solveButton.setStroke(Color.BLACK);
+        solve = new SolvePuzzle(solveButton);
+        
+        solveText.setText("Try Solution!");
+        solveStack.getChildren().addAll(solveButton, solveText);
+        add(solveStack, 3, 10);
        
     }
     
@@ -92,12 +104,22 @@ public class SudokuPane extends GridPane{
                 if (sudokuGrid[count1][count2] == 0) {
                     text = new Label();
                     
-                    box.addEventHandler(MouseEvent.MOUSE_PRESSED,
+                    box.addEventHandler(MouseEvent.MOUSE_CLICKED,
                             new EventHandler<MouseEvent>()
                     {
                         @Override
                         public void handle(MouseEvent t) {
-                        	text.setText(String.valueOf(currentInput));
+                        	switch (t.getButton()) {
+                            case PRIMARY: //Left button
+                            	text.setText(String.valueOf(currentInput));
+                                break;
+                            case SECONDARY: //Right button
+                                text.setText("");
+                                break;
+                            default:
+                                //Ignore
+                                break;
+                            }
                         }
                     });
                     
@@ -162,7 +184,7 @@ public class SudokuPane extends GridPane{
             
             stack.getChildren().addAll(box, text);
             
-            add(stack, i-1, 11);
+            add(stack, i-1, 12);
         }       
     }
     
