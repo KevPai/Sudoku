@@ -20,6 +20,7 @@ public class SudokuPane extends GridPane{
     
     private Font font = Font.font("Verdana", FontWeight.BOLD, 16);
     private int[][] newGrid;
+    private int[][] solutionGrid;
     Line line1 = new Line();
     Line line2 = new Line();
     Line line3 = new Line();
@@ -29,12 +30,12 @@ public class SudokuPane extends GridPane{
     Rectangle visualBoxes[][] = new Rectangle[9][9];
     ButtonLogic sudokuButtons;
     
+    int currentInput = 0;
+    
     SolvePuzzle solve;
     Rectangle solveButton;
     Label solveText = new Label();
     StackPane solveStack = new StackPane();
-    
-    int currentInput = 0;
     
     public SudokuPane() {
         for (int x = 0; x < 9; x++) {
@@ -49,10 +50,8 @@ public class SudokuPane extends GridPane{
         
         
         setNewGrid(solution.getBoard());
-        
-        //SudokuSolver.printBoard(newGrid);
+        solutionGrid = copyArray(newGrid);
         scramble = new SudokuScrambler(newGrid);
-        //newGrid = scramble.getScrambledBoard();
         setBoxes(newGrid);
         
         sudokuButtons = new ButtonLogic(visualBoxes);
@@ -79,7 +78,7 @@ public class SudokuPane extends GridPane{
         
         solveButton = new Rectangle(120,40,Color.WHITE);
         solveButton.setStroke(Color.BLACK);
-        solve = new SolvePuzzle(solveButton);
+        solve = new SolvePuzzle(solveButton, solutionGrid);
         
         solveText.setText("Try Solution!");
         solveStack.getChildren().addAll(solveButton, solveText);
@@ -157,6 +156,9 @@ public class SudokuPane extends GridPane{
             getLabelStyle(text);
             setHalignment(text, HPos.CENTER);
             
+            //InputNumber inputBox = new InputNumber(storedInput);
+            
+            
             Rectangle box = new Rectangle(38,38,Color.WHITE);
             box.setStroke(Color.BLACK);
             
@@ -166,9 +168,6 @@ public class SudokuPane extends GridPane{
                 @Override
                 public void handle(MouseEvent t) {
                     box.setFill(Color.BISQUE);
-                    
-                    currentInput = storedInput;
-                    //System.out.println(currentInput);
                 }
             });
             
@@ -182,10 +181,31 @@ public class SudokuPane extends GridPane{
                 
             });
             
+            box.addEventHandler(MouseEvent.MOUSE_CLICKED,
+                    new EventHandler<MouseEvent>()
+            {
+                @Override
+                public void handle(MouseEvent t) {
+                	currentInput = storedInput;
+                	box.setFill(Color.YELLOW);
+                }
+            });
+            
+            
             stack.getChildren().addAll(box, text);
             
             add(stack, i-1, 12);
         }       
+    }
+    
+    public int[][] copyArray(int[][] original) {
+    	int[][] clone = new int[original.length][original[0].length];
+    	
+    	for(int i = 0; i < original.length; i++)
+    		  for(int j = 0; j < original[i].length; j++)
+    		    clone[i][j] = original[i][j];
+    	
+    	return clone;
     }
     
     public Label getLabelStyle(Label myStyle) {

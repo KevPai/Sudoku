@@ -11,8 +11,14 @@ import javafx.stage.Stage;
 public class SolvePuzzle {
 
 	Rectangle myButton;
+	int[][] solution;
 	
-	public SolvePuzzle(Rectangle button) {
+	
+	public SolvePuzzle(Rectangle button, int[][] solutionGrid) {
+		
+		solution = solutionGrid;
+		SudokuSolver.printBoard(solution);
+		
 		myButton = button;
 		
         myButton.addEventHandler(MouseEvent.MOUSE_ENTERED,
@@ -44,5 +50,10 @@ public class SolvePuzzle {
 		        stage.show();			
 			}
         });
+	}
+	
+	public void checkSolution () {
+		
+		
 	}
 }
