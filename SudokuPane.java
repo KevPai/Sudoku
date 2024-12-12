@@ -78,7 +78,7 @@ public class SudokuPane extends GridPane{
         
         solveButton = new Rectangle(120,40,Color.WHITE);
         solveButton.setStroke(Color.BLACK);
-        solve = new SolvePuzzle(solveButton, solutionGrid);
+        solve = new SolvePuzzle(solveButton, newGrid, solutionGrid);
         
         solveText.setText("Try Solution!");
         solveStack.getChildren().addAll(solveButton, solveText);
@@ -87,7 +87,7 @@ public class SudokuPane extends GridPane{
     }
     
     public void setBoxes(int[][] sudokuGrid) {
-        
+    	
         int column = 0;
         
         for (int count1 = 0; count1 < 9; count1++) {

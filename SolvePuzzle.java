@@ -2,6 +2,7 @@ package p1;
 
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -11,11 +12,14 @@ import javafx.stage.Stage;
 public class SolvePuzzle {
 
 	Rectangle myButton;
+	Label result;
 	int[][] solution;
+	int[][] current;
+	GridPane popup;
 	
-	
-	public SolvePuzzle(Rectangle button, int[][] solutionGrid) {
+	public SolvePuzzle(Rectangle button, int[][] currentGrid, int[][] solutionGrid) {
 		
+		current = currentGrid;
 		solution = solutionGrid;
 		SudokuSolver.printBoard(solution);
 		
@@ -44,16 +48,38 @@ public class SolvePuzzle {
         {
 			@Override
 			public void handle(MouseEvent arg0) {
-				Stage stage = new Stage();
-		        Scene scene = new Scene(new GridPane(), 250, 150);
-		        stage.setScene(scene);
-		        stage.show();			
+				//SudokuSolver.printBoard(current);
+				
+				if (checkSolution(current, solution)) {
+					result = new Label("Congrats! You solved the puzzle!");
+				} else {
+					result = new Label("Wrong answer! Try again!");
+				}
+				
+				popup = new GridPane();
+				popup.add(result, 0, 0);
+				
+				Stage popstage = new Stage();
+		        Scene popscene = new Scene(popup, 250, 150);
+		        popstage.setScene(popscene);
+		        popstage.show();			
 			}
         });
 	}
 	
-	public void checkSolution () {
+	public boolean checkSolution (int[][] question, int[][] answer) {
 		
-		
+		if (question.length == answer.length && question[0].length == answer[0].length) {
+	    	for(int x = 0; x < answer.length; x++) {
+	    		  for(int y = 0; y < answer[x].length; y++) {
+		    		    if (question[x][y] != answer[x][y]) {
+		    		    	return false;
+		    		    }
+	    		  }
+	    	}
+	    	return true;
+		}
+		return false;
 	}
+	
 }
