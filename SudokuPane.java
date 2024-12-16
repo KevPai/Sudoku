@@ -102,6 +102,8 @@ public class SudokuPane extends GridPane{
                 
                 if (sudokuGrid[count1][count2] == 0) {
                     text = new Label();
+                    final int x = count1;
+                    final int y = count2;
                     
                     box.addEventHandler(MouseEvent.MOUSE_CLICKED,
                             new EventHandler<MouseEvent>()
@@ -111,6 +113,8 @@ public class SudokuPane extends GridPane{
                         	switch (t.getButton()) {
                             case PRIMARY: //Left button
                             	text.setText(String.valueOf(currentInput));
+                            	newGrid[x][y] = currentInput;
+                            	
                                 break;
                             case SECONDARY: //Right button
                                 text.setText("");
@@ -155,9 +159,6 @@ public class SudokuPane extends GridPane{
             Label text = new Label(String.valueOf(i));
             getLabelStyle(text);
             setHalignment(text, HPos.CENTER);
-            
-            //InputNumber inputBox = new InputNumber(storedInput);
-            
             
             Rectangle box = new Rectangle(38,38,Color.WHITE);
             box.setStroke(Color.BLACK);

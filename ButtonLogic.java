@@ -39,7 +39,4 @@ public class ButtonLogic {
         
     }
     
-    //public void inputNumber(){
-        
-    //}
 }
